@@ -13,7 +13,8 @@
   <script src="https://unpkg.com/feather-icons"></script>
 
 <!-- my style -->
-<LINK rel="stylesheet" href="style.css"></LINK>
+<link rel="stylesheet" href="style.css"></link>
+
 </head>
 <body>
   <!-- navbar start -->
@@ -24,14 +25,52 @@
       <a href="#home">home</a>
       <a href="#about">tentang kami</a>
       <a href="#menu">menu</a>
+      <a href="#products">produk</a>
       <a href="#contact">kontak</a>
     </div>
     
     <div class="navbar-extra">
-      <a href="#" id="search"><i data-feather="search"></i></a>
-      <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
+      <a href="#" id="search-button"><i data-feather="search"></i></a>
+      <a href="#" id="shopping-cart-button"><i data-feather="shopping-cart"></i></a>
       <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
     </div>
+    <!-- search form start -->
+     <div class="search-form">
+      <input type="search" id="search-box"
+      placeholder="search here...">
+      <label for="search-box"><i data-feather="search"></i></label>
+     </div>
+    <!-- search form end -->
+
+    <!-- shopping cart start -->
+     
+    <div class="shopping-cart">
+      <div class="cart-item">
+        <img src="img/1.jpg" alt="Produk 1">
+        <div class="item-detail">
+          <h3>Produk 1</h3>
+          <div class="item-price">IDR 100K</div>
+        </div>
+        <i data-feather="trash-2" class="remove-item"></i>
+      </div>
+      <div class="cart-item">
+        <img src="img/1.jpg" alt="Produk 1">
+        <div class="item-detail">
+          <h3>Produk 1</h3>
+          <div class="item-price">IDR 100K</div>
+        </div>
+        <i data-feather="trash-2" class="remove-item"></i>
+      </div>
+      <div class="cart-item">
+        <img src="img/1.jpg" alt="Produk 1">
+        <div class="item-detail">
+          <h3>Produk 1</h3>
+          <div class="item-price">IDR 100K</div>
+        </div>
+        <i data-feather="trash-2" class="remove-item"></i>
+      </div>
+    </div>
+    <!-- shopping cart end -->
   </nav>
     
     <!-- navbar end -->
@@ -85,13 +124,98 @@
             <p class="menu-card-price">IDR 100K</p>
           </div>
         </div>
-      </section>
-     <!-- menu section end -->
+        <!-- menu section end -->
+         
+        <!-- product section start -->
+         
+      <section id="products" class="products">
+        <h2><span>Produk</span> Tersedia</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. expedita, repellendus numquam quam tempora voluptatum</p>
+        <div class="row">
+          <div class="product-card">
+            <div class="product-icons">
+              <a href="#"><i data-feather="shopping-cart"></i></a>
+              <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+            </div>
+            <div class="product-image">
+              <img src="img/1.jpg" alt="product 1">
+            </div>
+            <div class="product-content"><h3>Radio Purba</h3>
+              <div class="product-stars">
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star"></i>
+              </div>
+              <div class="product-price">IDR 100K <span>IDR 500K</span></div>
+          </div>
+        </div>
+          <div class="product-card">
+            <div class="product-icons">
+              <a href="#"><i data-feather="shopping-cart"></i></a>
+              <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+            </div>
+            <div class="product-image">
+              <img src="img/1.jpg" alt="product 1">
+            </div>
+            <div class="product-content"><h3>Radio Purba</h3>
+              <div class="product-stars">
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+              </div>
+              <div class="product-price">IDR 100K <span>IDR 500K</span></div>
+          </div>
+        </div>
+          <div class="product-card">
+            <div class="product-icons">
+              <a href="#"><i data-feather="shopping-cart"></i></a>
+              <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+            </div>
+            <div class="product-image">
+              <img src="img/1.jpg" alt="product 1">
+            </div>
+            <div class="product-content"><h3>Radio Purba</h3>
+              <div class="product-stars">
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+              </div>
+              <div class="product-price">IDR 100K <span>IDR 500K</span></div>
+          </div>
+        </div>
+          <div class="product-card">
+            <div class="product-icons">
+              <a href="#"><i data-feather="shopping-cart"></i></a>
+              <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+            </div>
+            <div class="product-image">
+              <img src="img/1.jpg" alt="product 1">
+            </div>
+            <div class="product-content"><h3>Radio Purba</h3>
+              <div class="product-stars">
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+                <i data-feather="star"></i>
+              </div>
+              <div class="product-price">IDR 100K <span>IDR 500K</span></div>
+          </div>
+        </div>
+        </div>
+    </section>
+      <!-- product section end -->
 
      <!-- contact section -->
 
      <section id="contact" class="contact">
-      <h2><span>Kontak</span> Kami</h2>
+      <h2>Kontak<span> Kami</span></h2>
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, explicabo! </p>
 
         <div class="row">
@@ -129,6 +253,7 @@
           <a href="#home">Home</a>
           <a href="#about">Tentang</a>
           <a href="#menu">Menu</a>
+          <a href="#products">Produk</a>
           <a href="#contact">Kontak</a>
         </div>
 
@@ -139,6 +264,32 @@
 
         </footer>
      <!-- footer end -->
+      <!-- modal Box item detail start -->
+      <div class="modal" id="item-detail-modal">
+        <div class="modal-container">
+          <a href="#" class="close-icon"><i data-feather="x"></i></a>
+          <div class="modal-content">
+            <img src="img/1.jpg" alt="product 1">
+            <div class="product-content">
+              <h3>Produk 1</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, cum ea blanditiis dolores, possimus adipisci iusto aspernatur ipsa id perspiciatis illum ut nisi, reiciendis architecto??</p>
+              <div class="product-content"><h3>Radio Purba</h3>
+                <div class="product-stars">
+                  <i data-feather="star" class="star-full"></i>
+                  <i data-feather="star" class="star-full"></i>
+                  <i data-feather="star" class="star-full"></i>
+                  <i data-feather="star" class="star-full"></i>
+                  <i data-feather="star"></i>
+                </div>
+                <div class="product-price">IDR 100K <span>IDR 500K</span></div>
+                <a href="#"><i data-feather="shopping-cart"></i> <span>add to cart</span></a>
+            </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <!-- modal Box item detail end -->
      
     
     <!-- feather icons -->
