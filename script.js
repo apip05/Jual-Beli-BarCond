@@ -40,22 +40,38 @@ document.addEventListener("click", function (e) {
 // modal box
 const itemDetailModal = document.querySelector("#item-detail-modal");
 const itemDetailButtons = document.querySelectorAll(".item-detail-button");
+
 itemDetailButtons.forEach((btn) => {
   btn.onclick = (e) => {
-    itemDetailModal.style.display = "flex";
     e.preventDefault();
+
+    // Ambil elemen produk terkait
+    const productCard = btn.closest(".product-card");
+    const productName = productCard.querySelector("h3").textContent;
+    const productImage = productCard.querySelector("img").src;
+    const productPrice = productCard.querySelector(".product-price span").textContent;
+
+    // Update konten modal
+    itemDetailModal.querySelector("h3").textContent = productName;
+    itemDetailModal.querySelector("img").src = productImage;
+    itemDetailModal.querySelector(".product-price").textContent = productPrice;
+
+    // Tampilkan modal
+    itemDetailModal.style.display = "flex";
   };
 });
 
-// klik di luar elemen modal
-window.onclick = (e) => {
-  if (e.target === itemDetailModal) {
-    itemDetailModal.style.display = "none";
+// Klik di luar elemen modal untuk menutup
+window.addEventListener("click", (e) => {
+  const modal = document.querySelector("#item-detail-modal");
+  if (e.target === modal) {
+    modal.classList.remove("active");
   }
-};
-// close modal button
+});
+
+// Tombol close modal
 const closeModalButton = document.querySelector(".close-icon");
-closeModalButton.onclick = (e) => {
-  itemDetailModal.style.display = "none";
+closeModalButton.addEventListener("click", (e) => {
   e.preventDefault();
-};
+  document.querySelector("#item-detail-modal").classList.remove("active");
+});
