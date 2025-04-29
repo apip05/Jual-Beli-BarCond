@@ -15,10 +15,22 @@
 <!-- my style -->
 <link rel="stylesheet" href="style.css"></link>
 
+<!-- AlpineJS -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- App -->
+
+<script src="src/app.js" async></script>
+
+<!-- Midtrans -->
+<script type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-Fs6-FXuK2X4BI0ah"></script>
+
 </head>
 <body>
   <!-- navbar start -->
-  <nav class="navbar">
+  <nav class="navbar" x-data>
     <a href="#" class="navbar-logo">Bar<span>Cond</span>.</a>
     
     <div class="navbar-nav">
@@ -31,7 +43,10 @@
     
     <div class="navbar-extra">
       <a href="#" id="search-button"><i data-feather="search"></i></a>
-      <a href="#" id="shopping-cart-button"><i data-feather="shopping-cart"></i></a>
+      <a href="#" id="shopping-cart-button">
+        <i data-feather="shopping-cart"></i>
+        <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+      </a>
       <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
     </div>
     <!-- search form start -->
@@ -45,30 +60,48 @@
     <!-- shopping cart start -->
      
     <div class="shopping-cart">
+      <template x-for="(item, index) in $store.cart.items" x-key="index">
       <div class="cart-item">
-        <img src="img/1.jpg" alt="Produk 1">
+
+        <img :src="`img/${item.img}`" :alt="item.name">
         <div class="item-detail">
-          <h3>Produk 1</h3>
-          <div class="item-price">IDR 100K</div>
+          <h3 x-text="item.name"></h3>
+          <div class="item-price">
+            <span x-text="rupiah( item.price)"></span> &times;
+            <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+            <span x-text="item.quantity"></span>
+            <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+            <span x-text="rupiah(item.total)"></span>
+          </div>
         </div>
-        <i data-feather="trash-2" class="remove-item"></i>
       </div>
-      <div class="cart-item">
-        <img src="img/1.jpg" alt="Produk 1">
-        <div class="item-detail">
-          <h3>Produk 1</h3>
-          <div class="item-price">IDR 100K</div>
-        </div>
-        <i data-feather="trash-2" class="remove-item"></i>
-      </div>
-      <div class="cart-item">
-        <img src="img/1.jpg" alt="Produk 1">
-        <div class="item-detail">
-          <h3>Produk 1</h3>
-          <div class="item-price">IDR 100K</div>
-        </div>
-        <i data-feather="trash-2" class="remove-item"></i>
-      </div>
+      </template>
+      <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">cart is Empty</h4>
+      <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+
+    <div class="form-container" x-show="$store.cart.items.length">
+      <form action="" id="checkoutForm">
+        <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+        <input type="hidden" name="total" x-model="$store.cart.total">
+        <h5>Customer Detail</h5>
+
+        <label for="name">
+          <span>Name</span>
+          <input type="text" name="name" id="name">
+        </label>
+
+        <label for="email">
+          <span>email</span>
+          <input type="email" name="email" id="email">
+        </label>
+
+        <label for="phone">
+          <span>Phone</span>
+          <input type="number" name="phone" id="phone" autocomplete="off">
+        </label>
+        <button class="checkout-button disabled" type="submit" id="checkout-button" value="checkout">Checkout</button>
+      </form>
+    </div>
     </div>
     <!-- shopping cart end -->
   </nav>
@@ -95,8 +128,7 @@
         </div>
         <div class="content">
           <h3>Kenapa memilih Website BarCond?</h3>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. In quos unde recusandae. Itaque, doloribus quibusdam.</p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat, eligendi sequi. Eligendi cumque explicabo laborum ipsa. Ex reprehenderit officia harum.</p>
+          <p>Website ini menawarkan berbagai pilihan barang bekas yang terjamin kualitasnya.</p>
         </div>
         </div>
       </section>
@@ -104,110 +136,126 @@
 
      <!-- menu section start -->
       <section id="menu" class="menu">
-        <h2>Menu<span> Barang</span></h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. expedita, repellendus numquam quam tempora voluptatum </p>
+        <h2>Menu<span> - Petunjuk</span></h2>
+        <p>menu ini hanya gambaran saja,lihat produk tersedia di bagian product, lalu masukkan ke keranjang kemudian checkout</p>
 
         <div class="row">
           <div class="menu-card">
             <img src="img/1.jpg" alt="Radio 90s" class="menu-card-img">
-            <h3 class="menu-card-title">- Radio 90s -</h3>
-            <p class="menu-card-price">IDR 100K</p>
+            <h3 class="menu-card-title">- Radio 70s -</h3>
+          </div>
+          <div class="menu-card">
+            <img src="img/1.jpg" alt="Radio 90s" class="menu-card-img">
+            <h3 class="menu-card-title">- Radio 80s -</h3>
           </div>
           <div class="menu-card">
             <img src="img/1.jpg" alt="Radio 90s" class="menu-card-img">
             <h3 class="menu-card-title">- Radio 90s -</h3>
-            <p class="menu-card-price">IDR 100K</p>
-          </div>
-          <div class="menu-card">
-            <img src="img/1.jpg" alt="Radio 90s" class="menu-card-img">
-            <h3 class="menu-card-title">- Radio 90s -</h3>
-            <p class="menu-card-price">IDR 100K</p>
           </div>
         </div>
         <!-- menu section end -->
          
         <!-- product section start -->
          
-      <section id="products" class="products">
+      <section id="products" class="products" x-data="products">
         <h2><span>Produk</span> Tersedia</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. expedita, repellendus numquam quam tempora voluptatum</p>
+        <p>Murah murah murah, belanja belanja belanja, dibeli dibeli dibeli</p>
         <div class="row">
-          <div class="product-card">
-            <div class="product-icons">
-              <a href="#"><i data-feather="shopping-cart"></i></a>
-              <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-            </div>
-            <div class="product-image">
-              <img src="img/1.jpg" alt="product 1">
-            </div>
-            <div class="product-content"><h3>Radio Purba</h3>
-              <div class="product-stars">
-                <i data-feather="star" class="star-full"></i>
-                <i data-feather="star" class="star-full"></i>
-                <i data-feather="star" class="star-full"></i>
-                <i data-feather="star" class="star-full"></i>
-                <i data-feather="star"></i>
+          <template x-for="(item, index) in  items" x-key="index">
+            <div class="product-card">
+              <div class="product-icons">
+                <a href="#" @click.prevent="$store.cart.add(item)"><svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <use href="img/feather-sprite.svg#shopping-cart" />
+                </svg></a>
+                <a href="#" class="item-detail-button" @click.prevent="openModal(item)">
+                  <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#eye" />
+                </svg>
+                </a>
               </div>
-              <div class="product-price">IDR 100K <span>IDR 500K</span></div>
-          </div>
-        </div>
-          <div class="product-card">
-            <div class="product-icons">
-              <a href="#"><i data-feather="shopping-cart"></i></a>
-              <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-            </div>
-            <div class="product-image">
-              <img src="img/1.jpg" alt="product 1">
-            </div>
-            <div class="product-content"><h3>Radio Purba</h3>
-              <div class="product-stars">
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
+              <div class="product-image">
+                <img :src="`img/${item.img}`" :alt="item.name">
               </div>
-              <div class="product-price">IDR 100K <span>IDR 500K</span></div>
+              <div class="product-content">
+                <h3 x-text="item.name"></h3>
+                <!-- <p x-text="item.p"></p> -->
+                <div class="product-stars">
+                  <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                  <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                  <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                  <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                  <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                </div>
+                <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
+            </div>
           </div>
-        </div>
-          <div class="product-card">
-            <div class="product-icons">
-              <a href="#"><i data-feather="shopping-cart"></i></a>
-              <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-            </div>
-            <div class="product-image">
-              <img src="img/1.jpg" alt="product 1">
-            </div>
-            <div class="product-content"><h3>Radio Purba</h3>
-              <div class="product-stars">
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
-              </div>
-              <div class="product-price">IDR 100K <span>IDR 500K</span></div>
-          </div>
-        </div>
-          <div class="product-card">
-            <div class="product-icons">
-              <a href="#"><i data-feather="shopping-cart"></i></a>
-              <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-            </div>
-            <div class="product-image">
-              <img src="img/1.jpg" alt="product 1">
-            </div>
-            <div class="product-content"><h3>Radio Purba</h3>
-              <div class="product-stars">
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
-                <i data-feather="star"></i>
-              </div>
-              <div class="product-price">IDR 100K <span>IDR 500K</span></div>
-          </div>
-        </div>
+          </template>
+
         </div>
     </section>
       <!-- product section end -->
@@ -216,27 +264,26 @@
 
      <section id="contact" class="contact">
       <h2>Kontak<span> Kami</span></h2>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, explicabo! </p>
+        <p>Silahkan datang sesuai dengan lokasi jika ingin membeli langsung. </p>
 
         <div class="row">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.5677033425522!2d104.6502218749714!3d-3.2075927967675963!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e3bbd8c77c524eb%3A0x4889860892cb2a02!2sJungle%20Cafe!5e0!3m2!1sid!2sid!4v1745253081004!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
 
-          <form action="">
-            <div class="input-group">
-              <i data-feather="user"></i>
-              <input type="text" placeholder="nama">
-            </div>
-            <div class="input-group">
-              <i data-feather="mail"></i>
-              <input type="text" placeholder="email">
-            </div>
-            <div class="input-group">
-              <i data-feather="phone"></i>
-              <input type="text" placeholder="No HP">
-            </div>
-
-            <button type="submit" class="btn">Kirim Pesan</button>
-          </form>
+          <form action="php/contactHandler.php" method="POST" class="contact-form">
+  <div class="input-group">
+    <i data-feather="user"></i>
+    <input type="text" name="name" placeholder="BarCond Team" required>
+  </div>
+  <div class="input-group">
+    <i data-feather="mail"></i>
+    <input type="email" name="email" placeholder="info@barcond.com" required>
+  </div>
+  <div class="input-group">
+    <i data-feather="phone"></i>
+    <input type="text" name="phone" placeholder="+62 812-3456-7890" required>
+  </div>
+  <button type="submit" class="btn">Kirim Pesan</button>
+</form>
 
         </div>
      </section>
@@ -269,26 +316,24 @@
         <div class="modal-container">
           <a href="#" class="close-icon"><i data-feather="x"></i></a>
           <div class="modal-content">
-            <img src="img/1.jpg" alt="product 1">
+            <img src="" alt="product image">
             <div class="product-content">
-              <h3>Produk 1</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, cum ea blanditiis dolores, possimus adipisci iusto aspernatur ipsa id perspiciatis illum ut nisi, reiciendis architecto??</p>
-              <div class="product-content"><h3>Radio Purba</h3>
-                <div class="product-stars">
-                  <i data-feather="star" class="star-full"></i>
-                  <i data-feather="star" class="star-full"></i>
-                  <i data-feather="star" class="star-full"></i>
-                  <i data-feather="star" class="star-full"></i>
-                  <i data-feather="star"></i>
-                </div>
-                <div class="product-price">IDR 100K <span>IDR 500K</span></div>
-                <a href="#"><i data-feather="shopping-cart"></i> <span>add to cart</span></a>
-            </div>
+              <h3>Product Name</h3>
+              <p>Product description goes here...</p>
+              <div class="product-stars">
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+              </div>
+              <div class="product-price">IDR <span>0</span></div>
+              <a href="#"><i data-feather="shopping-cart"></i> <span>Add to cart</span></a>
             </div>
           </div>
-          
         </div>
       </div>
+                
       <!-- modal Box item detail end -->
      
     
